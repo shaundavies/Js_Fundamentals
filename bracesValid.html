@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // //Slice is exclusive
+        // //Special characters = {{()}}[]
+        function bracesValid(str, spCharacterOpen, spCharacterClose) {
+            var newArr = [];
+            var toggle = 0;
+            var oppoToggle = 0;
+            for (var i = 0; i < str.length; i++) {
+                var _sliceStr = str.slice(i, i + 1);
+                newArr[i] = _sliceStr;
+            }
+            var trackerOpen = 0;
+            var trackerClose = 0;
+            for (var i = 0; i < newArr.length; i++) {
+                if (newArr[i] == spCharacterOpen) {
+                    trackerOpen += 1;
+                    toggle += 1;
+                    oppoToggle += 1;
+                }
+                if (newArr[i] == spCharacterClose) {
+                    trackerClose += 1;
+                    toggle -= 1;
+                    oppoToggle -= 1;
+                    if (oppoToggle < 0) {
+                        return false;
+                    }
+                }
+            }
+            // console.log(toggle);
+            // console.log(oppoToggle);
+            // console.log(trackerOpen)
+            // console.log(trackerClose)
+
+            if (trackerOpen != trackerClose) { return false; }
+            if (toggle > 1 || toggle < 0 || oppoToggle > 1) { return false; }
+
+            return true;
+        }
+
+
+
+        function matchString(str) {
+            var result = bracesValid(str, "{", "}");
+            var result2 = bracesValid(str, "[", "]");
+            var result3 = bracesValid(str, "(", ")");
+            console.log(result + " " + result2 + "  " + result3);
+            if (result == false || result2 == false || result3 == false)
+                return false;
+        }
+
+        var final = matchString("ad[dad}}{}dn()()a]]ld");
+        console.log(final);
+
+    </script>
+</body>
+
+</html>
